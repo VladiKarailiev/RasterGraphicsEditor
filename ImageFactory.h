@@ -1,12 +1,15 @@
 #pragma once
 #include <iostream>
 #include <fstream>
-#include <memory>
+#include <string>
 #include "Image.hpp"
+#include "BlackOrWhitePixel.h"
+#include "GrayscalePixel.h"
+#include "RGBPixel.h"
 
 class ImageFactory {
 public:
-    static std::unique_ptr<Image<bool>> createPBM(const std::string& filePath) {
+    static Image* createPBM(const std::string& filePath) {
         std::ifstream file(filePath);
         if (!file.is_open()) {
             throw std::runtime_error("Failed to open file: " + filePath);
@@ -14,20 +17,20 @@ public:
 
         int width, height;
         file >> height >> width;
-        auto image = std::make_unique<Image<bool>>(height, width);
+        Image* image = new Image(height, width);
 
         for (int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j) {
-                int value;
-                file >> value;
-                image->setPixel(i, j, value == 1);
+                BlackOrWhitePixel value;
+                Pixel* ptr = &value;
+                ptr->read(file);
+                image->setPixel(i, j, ptr);
             }
         }
-
         return image;
     }
-
-    static std::unique_ptr<Image<int>> createPGM(const std::string& filePath) {
+    
+    static Image* createPGM(const std::string& filePath) {
         std::ifstream file(filePath);
         if (!file.is_open()) {
             throw std::runtime_error("Failed to open file: " + filePath);
@@ -35,21 +38,21 @@ public:
 
         int width, height, maxValue;
         file >> height >> width >> maxValue;
-        auto image = std::make_unique<Image<int>>(height, width);
+        Image* image = new Image(height, width);
 
         for (int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j) {
-                int value;
-                file >> value;
-                if (value > maxValue) value = maxValue;
-                image->setPixel(i, j, value);
+                GrayscalePixel value;
+                Pixel* ptr = &value;
+                ptr->read(file);
+                image->setPixel(i, j, ptr);
             }
         }
 
         return image;
     }
 
-    static std::unique_ptr<Image<RGB>> createPPM(const std::string& filePath) {
+    static Image* createPPM(const std::string& filePath) {
         std::ifstream file(filePath);
         if (!file.is_open()) {
             throw std::runtime_error("Failed to open file: " + filePath);
@@ -57,48 +60,34 @@ public:
 
         int width, height, maxValue;
         file >> height >> width >> maxValue;
-        auto image = std::make_unique<Image<RGB>>(height, width);
+        Image* image = new Image(height, width);
 
         for (int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j) {
-                int red, green, blue;
-                file >> red >> green >> blue;
-                image->setPixel(i, j, { red, green, blue });
+                RGBPixel value;
+                Pixel* ptr = &value;
+                ptr->read(file);
+                image->setPixel(i, j, ptr);
             }
         }
-
         return image;
     }
 
-
-
-    template<typename T>
-    static std::unique_ptr<ImageBase> createImage(const std::string& filePath) {
+    static Image* createImage(const std::string& filePath) {
         std::string format = filePath.substr(filePath.size() - 3, 3);
         if (format == "pbm") {
             return createPBM(filePath);
         }
-        else if (format == "ppm") {
-            return createPPM(filePath);
-        }
         else if (format == "pgm") {
             return createPGM(filePath);
+        }
+        else if (format == "ppm") {
+
+            return createPPM(filePath);
         }
         else {
             throw std::runtime_error("Unsupported file format: " + filePath);
         }
     }
+    
 };
-
-
-
-/*
-std string ???
-vector ??? 
-unique ptr ???
-
-taq logika v methodite moje da se iznese po nqkuv nachin idk?
-
-
-
-*/

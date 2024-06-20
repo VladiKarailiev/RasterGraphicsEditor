@@ -4,9 +4,17 @@
 
 int main() {
     try {
-        std::unique_ptr<ImageBase> pbmImage = ImageFactory::createImage<ImageBase>("letterj.pbm");
+        Image* pbmImage = ImageFactory::createImage("letterj.pbm");
         std::cout << "PBM Image:" << std::endl;
         pbmImage->print();
+
+        Image* pgmImage = ImageFactory::createImage("feep.pgm");
+        std::cout << "PGM Image (Grayscale):" << std::endl;
+        pgmImage->print();
+
+        Image* ppmRgbImage = ImageFactory::createImage("test.ppm");
+        std::cout << "PPM Image (RGB):" << std::endl;
+        ppmRgbImage->print();
       
     }
     catch (const std::exception& e) {

@@ -1,41 +1,50 @@
 #pragma once
 #include <vector>
-#include <iostream>
-#include "RGB.h"
-#include "ImageBase.h"
+#include <memory>
+#include "Pixel.h"
+#include "Vector.hpp"
+#include "Polymorphic_Ptr.hpp"
 
-template <typename T>
-class Image : public ImageBase
-{
+class Image {
 public:
-    Image(int height, int width) : width(width), height(height), pixels(height, std::vector<T>(width)) {}
-
-    void setPixel(int x, int y, T value) {
-        if (x< 0 || x >= height || y<0 || y >= width) {
-            throw std::out_of_range("Pixel coordinates out of range");
+    Image(int height, int width) : width(width), height(height) {
+        for (size_t i = 0; i < height; i++)
+        {
+            pixels.pushBack(Vector<Polymorphic_Ptr<Pixel>>());
+            for (size_t j = 0; j < width; j++)
+            {
+                pixels[i].pushBack(Polymorphic_Ptr<Pixel>());
+            }
         }
-        pixels[x][y] = value;
     }
 
-    T getPixel(int x, int y) const {
-        if (x < 0 || x >= height || y < 0 || y >= width) {
+    void setPixel(int x, int y, Pixel* pixel) {
+        if (x >= height || y >= width) {
             throw std::out_of_range("Pixel coordinates out of range");
         }
-        return pixels[x][y];
+        pixels[x][y] = pixel->clone();
+
+
+    }
+
+    const Pixel& getPixel(int x, int y) const {
+        if (x >= height || y >= width) {
+            throw std::out_of_range("Pixel coordinates out of range");
+        }
+        return *pixels[x][y];
     }
 
     void print() const {
-        for (const auto& row : pixels) {
-            for (const auto& pixel : row) {
-                std::cout << pixel << " ";
+        for (int i = 0; i < pixels.getSize(); i++) {
+            for (int j = 0; j < pixels[i].getSize(); j++) {
+                    getPixel(i,j).print(std::cout);
+
             }
             std::cout << std::endl;
         }
     }
 
-    ~Image() = default;
-
 private:
     int width, height;
-    std::vector<std::vector<T>> pixels;
+    Vector<Vector<Polymorphic_Ptr<Pixel>>> pixels;
 };
