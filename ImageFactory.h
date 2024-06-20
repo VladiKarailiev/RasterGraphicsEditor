@@ -73,13 +73,16 @@ public:
 
 
     template<typename T>
-    static std::unique_ptr<Image<T>> createImage(const std::string& filePath) {
+    static std::unique_ptr<ImageBase> createImage(const std::string& filePath) {
         std::string format = filePath.substr(filePath.size() - 3, 3);
         if (format == "pbm") {
             return createPBM(filePath);
         }
         else if (format == "ppm") {
             return createPPM(filePath);
+        }
+        else if (format == "pgm") {
+            return createPGM(filePath);
         }
         else {
             throw std::runtime_error("Unsupported file format: " + filePath);

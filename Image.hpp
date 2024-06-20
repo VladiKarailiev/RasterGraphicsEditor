@@ -2,9 +2,10 @@
 #include <vector>
 #include <iostream>
 #include "RGB.h"
+#include "ImageBase.h"
 
 template <typename T>
-class Image
+class Image : public ImageBase
 {
 public:
     Image(int height, int width) : width(width), height(height), pixels(height, std::vector<T>(width)) {}

@@ -4,9 +4,9 @@
 
 int main() {
     try {
-        std::unique_ptr<Image<RGB>> pgmImage = ImageFactory::createPPM("test.ppm");
-        std::cout << "PpM Image:" << std::endl;
-        pgmImage->print();
+        std::unique_ptr<ImageBase> pbmImage = ImageFactory::createImage<ImageBase>("letterj.pbm");
+        std::cout << "PBM Image:" << std::endl;
+        pbmImage->print();
       
     }
     catch (const std::exception& e) {
