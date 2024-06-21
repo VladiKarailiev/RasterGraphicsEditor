@@ -18,7 +18,7 @@ public:
         }
     }
 
-    void setPixel(int x, int y, Pixel* pixel) {
+    void setPixel(int x, int y, const Pixel* pixel) {
         if (x >= height || y >= width) {
             throw std::out_of_range("Pixel coordinates out of range");
         }
@@ -44,7 +44,19 @@ public:
         }
     }
 
+    int getWidth() const
+    {
+        return width;
+    }
+    int getHeight() const
+    {
+        return height;
+    }
+
 private:
     int width, height;
     Vector<Vector<Polymorphic_Ptr<Pixel>>> pixels;
 };
+
+
+// tva ne e hpp!

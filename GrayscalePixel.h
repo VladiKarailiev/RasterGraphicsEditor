@@ -12,6 +12,21 @@ public:
     Pixel* clone() const override {
         return new GrayscalePixel(*this);
     }
+    void grayscale() override
+    {
+        ;
+    }
+    void monochrome() override
+    {
+        value = (value != 0);
+    }
+    void invert() override
+    {
+        value = 255 - value;
+    }/// magic numbers
+
+
+
     void print(std::ostream& os) const override {
         os << value;
     }
