@@ -4,7 +4,7 @@ class NegativeCommand :
 	public ImageCommand
 {
 public:
-	NegativeCommand(Image& data);
+	NegativeCommand(Vector<Image>& data);
 	void execute() override;
 
 

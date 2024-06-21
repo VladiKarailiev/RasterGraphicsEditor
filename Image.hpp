@@ -7,6 +7,7 @@
 
 class Image {
 public:
+    Image() = default;
     Image(int height, int width) : width(width), height(height) {
         for (size_t i = 0; i < height; i++)
         {
@@ -54,7 +55,7 @@ public:
     }
 
 private:
-    int width, height;
+    int width = 0, height = 0;
     Vector<Vector<Polymorphic_Ptr<Pixel>>> pixels;
 };
 

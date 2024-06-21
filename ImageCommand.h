@@ -6,11 +6,11 @@
 class ImageCommand
 {
 protected:
-	Image& data;
+	Vector<Image>& data;
 
-	Image* snapshot;
+	Vector<Image>* snapshot;
 public:
-	ImageCommand(Image& data) : data(data) {}
+	ImageCommand(Vector<Image>& data) : data(data) {}
 
 	virtual void execute() = 0;
 	void undo();

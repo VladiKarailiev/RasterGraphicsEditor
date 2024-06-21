@@ -1,31 +1,37 @@
 #include "RotateRightCommand.h"
-RotateRightCommand::RotateRightCommand(Image& data) : ImageCommand(data)
+RotateRightCommand::RotateRightCommand(Vector<Image>& data) : ImageCommand(data)
 {
 }
 
 void RotateRightCommand::execute()
 {
+
     if (snapshot) {
         delete snapshot;
     }
-    snapshot = new Image(data);
+    snapshot = new Vector<Image>(data);
 
-    Image* rotated = new Image(data.getWidth(), data.getHeight());
-    int newHeight = data.getWidth();
-    int newWidth = data.getHeight();
-
-    // logic
-    for (size_t i = 0; i < data.getHeight(); i++)
+    for (size_t imgIndex = 0; imgIndex < data.getSize(); imgIndex++)
     {
-        for (size_t j = 0; j < data.getWidth(); j++)
+
+
+        Image* rotated = new Image(data[imgIndex].getWidth(), (data[imgIndex]).getHeight());
+        int newHeight = (data[imgIndex]).getWidth();
+        int newWidth = (data[imgIndex]).getHeight();
+
+        // logic
+        for (size_t i = 0; i < (data[imgIndex]).getHeight(); i++)
         {
-            (*rotated).setPixel(j, newWidth - i - 1, data.getPixel(i, j).clone());
+            for (size_t j = 0; j < (data[imgIndex]).getWidth(); j++)
+            {
+                (*rotated).setPixel(j, newWidth - i - 1, (data[imgIndex]).getPixel(i, j).clone());
+            }
         }
+
+        (data[imgIndex]) = (*rotated);
+        delete rotated;
+
     }
-
-    data = (*rotated);
-    delete rotated;
-
 
 }
 

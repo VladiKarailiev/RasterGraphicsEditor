@@ -5,7 +5,7 @@ class RotateRightCommand :
 {
 
 public:
-	RotateRightCommand(Image& data);
+	RotateRightCommand(Vector<Image>& data);
 	void execute() override;
 
 	ImageCommand* clone() const override;

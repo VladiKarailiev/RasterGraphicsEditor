@@ -5,6 +5,11 @@ void CommandExecutor::add(ImageCommand* c)
 	toBeExecuted.push(c);
 }
 
+void CommandExecutor::add(Polymorphic_Ptr<ImageCommand> c)
+{
+	toBeExecuted.push(c);
+}
+
 void CommandExecutor::execute()
 {
 	if (!toBeExecuted.isEmpty()) {

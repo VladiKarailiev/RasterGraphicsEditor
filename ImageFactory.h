@@ -9,7 +9,7 @@
 
 class ImageFactory {
 public:
-    static Image* createPBM(const std::string& filePath) {
+    static Image createPBM(const std::string& filePath) {
         std::ifstream file(filePath);
         if (!file.is_open()) {
             throw std::runtime_error("Failed to open file: " + filePath);
@@ -17,20 +17,20 @@ public:
 
         int width, height;
         file >> height >> width;
-        Image* image = new Image(height, width);
+        Image image(height,width);
 
         for (int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j) {
                 BlackOrWhitePixel value;
                 Pixel* ptr = &value;
                 ptr->read(file);
-                image->setPixel(i, j, ptr);
+                image.setPixel(i, j, ptr);
             }
         }
         return image;
     }
     
-    static Image* createPGM(const std::string& filePath) {
+    static Image createPGM(const std::string& filePath) {
         std::ifstream file(filePath);
         if (!file.is_open()) {
             throw std::runtime_error("Failed to open file: " + filePath);
@@ -38,21 +38,21 @@ public:
 
         int width, height, maxValue;
         file >> height >> width >> maxValue;
-        Image* image = new Image(height, width);
+        Image image(height,width);
 
         for (int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j) {
                 GrayscalePixel value;
                 Pixel* ptr = &value;
                 ptr->read(file);
-                image->setPixel(i, j, ptr);
+                image.setPixel(i, j, ptr);
             }
         }
 
         return image;
     }
 
-    static Image* createPPM(const std::string& filePath) {
+    static Image createPPM(const std::string& filePath) {
         std::ifstream file(filePath);
         if (!file.is_open()) {
             throw std::runtime_error("Failed to open file: " + filePath);
@@ -60,20 +60,20 @@ public:
 
         int width, height, maxValue;
         file >> height >> width >> maxValue;
-        Image* image = new Image(height, width);
+        Image image(height,width);
 
         for (int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j) {
                 RGBPixel value;
                 Pixel* ptr = &value;
                 ptr->read(file);
-                image->setPixel(i, j, ptr);
+                image.setPixel(i, j, ptr);
             }
         }
         return image;
     }
 
-    static Image* createImage(const std::string& filePath) {
+    static Image createImage(const std::string& filePath) {
         std::string format = filePath.substr(filePath.size() - 3, 3);
         if (format == "pbm") {
             return createPBM(filePath);

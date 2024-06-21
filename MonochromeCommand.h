@@ -5,7 +5,7 @@ class MonochromeCommand :
 {
 
 public:
-	MonochromeCommand(Image& data);
+	MonochromeCommand(Vector<Image>& data);
 	void execute() override;
 
 

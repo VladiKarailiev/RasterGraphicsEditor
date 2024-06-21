@@ -5,7 +5,7 @@ class GrayscaleCommand :
 {
 
 public:
-	GrayscaleCommand(Image& data);
+	GrayscaleCommand(Vector<Image>& data);
 	void execute() override;
 
 
