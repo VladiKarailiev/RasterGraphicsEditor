@@ -4,9 +4,10 @@
 #include "GrayscaleCommand.h"
 #include "RotateCommandBase.h"
 #include "RotateLeftCommand.h"
+#include "CommandExecutor.h"
 #include "RGB.h"
 
-int main() {
+int main2() {
     try {
         Image* pbmImage = ImageFactory::createImage("letterj.pbm");
         //std::cout << "PBM Image:" << std::endl;
@@ -43,7 +44,31 @@ int main() {
 
     return 0;
 }
+int main()
+{
 
+    Image* pbmImage = ImageFactory::createImage("letterj.pbm");
+
+    CommandExecutor& ce = CommandExecutor::getInstance();
+    ImageCommand* ic1 = new RotateLeftCommand(*pbmImage);
+    ImageCommand* ic2 = new NegativeCommand(*pbmImage);
+    
+    Polymorphic_Ptr<ImageCommand> ptr = Factory::create(*pbmImage);
+    ce.add(ptr.get());
+
+    pbmImage->print();
+    std::cout << '\n';
+
+    ce.execute();
+    pbmImage->print();
+    std::cout << '\n';
+
+    ce.undo();
+    pbmImage->print();
+    std::cout << '\n';
+
+    delete pbmImage;
+}
 
 /*
 trqq se poglednat za vs sluchai height i width da ne sa razmeneni
