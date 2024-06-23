@@ -3,6 +3,11 @@ MonochromeCommand::MonochromeCommand(Vector<Image>& data) : ImageCommand(data)
 {
 }
 
+void MonochromeCommand::print() const
+{
+    std::cout << "monochrome";
+};
+
 void MonochromeCommand::execute()
 {
     if (snapshot) {

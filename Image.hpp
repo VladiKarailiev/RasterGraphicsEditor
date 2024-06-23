@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include <memory>
+#include <fstream>
 #include "Pixel.h"
 #include "Vector.hpp"
 #include "Polymorphic_Ptr.hpp"
@@ -8,7 +8,11 @@
 class Image {
 public:
     Image() = default;
-    Image(int height, int width) : width(width), height(height) {
+    Image(std::string path) {
+        this->path = path;
+    }
+    Image(int height, int width, std::string path) : width(width), height(height) {
+        this->path = path;
         for (size_t i = 0; i < height; i++)
         {
             pixels.pushBack(Vector<Polymorphic_Ptr<Pixel>>());
@@ -54,10 +58,40 @@ public:
         return height;
     }
 
+    std::string getPath() const
+    {
+        return path;
+    }
+
+    void save()
+    {
+        std::ofstream ofs(path);
+        if (!ofs.is_open()) return;
+        ofs << height << ' ' << width << '\n';
+        for (size_t i = 0; i < height; i++)
+        {
+            for (size_t j = 0; j < width; j++)
+            {
+                getPixel(i, j).print(ofs);
+                ofs << ' ';
+            }
+            ofs << '\n';
+        }
+    }
+    void saveAs(std::string newPath)
+    {
+        path = newPath;
+        save();
+    }
+
 private:
     int width = 0, height = 0;
     Vector<Vector<Polymorphic_Ptr<Pixel>>> pixels;
+    std::string path = "";
 };
 
-
 // tva ne e hpp!
+
+// kato zapisva trqq da pishe tva maxnumber 
+// collage
+// saveas

@@ -17,7 +17,7 @@ public:
 
         int width, height;
         file >> height >> width;
-        Image image(height,width);
+        Image image(height,width,filePath);
 
         for (int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j) {
@@ -27,6 +27,7 @@ public:
                 image.setPixel(i, j, ptr);
             }
         }
+
         return image;
     }
     
@@ -36,9 +37,9 @@ public:
             throw std::runtime_error("Failed to open file: " + filePath);
         }
 
-        int width, height, maxValue;
-        file >> height >> width >> maxValue;
-        Image image(height,width);
+        int width, height;
+        file >> height >> width;
+        Image image(height,width, filePath);
 
         for (int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j) {
@@ -58,9 +59,9 @@ public:
             throw std::runtime_error("Failed to open file: " + filePath);
         }
 
-        int width, height, maxValue;
-        file >> height >> width >> maxValue;
-        Image image(height,width);
+        int width, height;
+        file >> height >> width;
+        Image image(height,width, filePath);
 
         for (int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j) {

@@ -24,13 +24,14 @@ public:
 	void execute();
 	void executeAll();
 
+	void printAll() const;
+
 	void undo();
+	void undoAll();
 
 	/*static CommandExecutor& getInstance() {
 		static CommandExecutor executor;
 		return executor;
 	}*/
 
-	CommandExecutor(const CommandExecutor&) = delete;
-	CommandExecutor& operator=(const CommandExecutor&) = delete;
 };

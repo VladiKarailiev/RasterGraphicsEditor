@@ -4,6 +4,10 @@ NegativeCommand::NegativeCommand(Vector<Image>& data) : ImageCommand(data)
 
 }
 
+void NegativeCommand::print() const
+{
+    std::cout << "negative";
+};
 void NegativeCommand::execute()
 {
     if (snapshot) {

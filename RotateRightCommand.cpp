@@ -3,6 +3,12 @@ RotateRightCommand::RotateRightCommand(Vector<Image>& data) : ImageCommand(data)
 {
 }
 
+
+void RotateRightCommand::print() const
+{
+    std::cout << "rotate right";
+};
+
 void RotateRightCommand::execute()
 {
 
@@ -15,7 +21,7 @@ void RotateRightCommand::execute()
     {
 
 
-        Image* rotated = new Image(data[imgIndex].getWidth(), (data[imgIndex]).getHeight());
+        Image* rotated = new Image(data[imgIndex].getWidth(), (data[imgIndex]).getHeight(), data[imgIndex].getPath());
         int newHeight = (data[imgIndex]).getWidth();
         int newWidth = (data[imgIndex]).getHeight();
 

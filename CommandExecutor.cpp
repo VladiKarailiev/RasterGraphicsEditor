@@ -28,6 +28,19 @@ void CommandExecutor::executeAll()
 	}
 }
 
+void CommandExecutor::printAll() const
+{
+	if (toBeExecuted.isEmpty()) return;
+	MyQueue< Polymorphic_Ptr<ImageCommand>> copy(toBeExecuted);
+	while (!copy.isEmpty())
+	{
+		copy.peek()->print();
+		std::cout << " ";
+		copy.pop();
+	}
+	std::cout << std::endl;
+}
+
 void CommandExecutor::undo()
 {
 	if (!history.isEmpty()) {
@@ -35,5 +48,11 @@ void CommandExecutor::undo()
 		temp->undo();
 
 		history.pop();
+	}
+}
+void CommandExecutor::undoAll()
+{
+	while (!history.isEmpty()) {
+		undo();
 	}
 }

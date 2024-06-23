@@ -3,6 +3,10 @@ RotateLeftCommand::RotateLeftCommand(Vector<Image>& data) : ImageCommand(data)
 {
 }
 
+void RotateLeftCommand::print() const
+{
+    std::cout << "rotate left";
+};
 void RotateLeftCommand::execute()
 {
     if (snapshot) {
@@ -14,7 +18,7 @@ void RotateLeftCommand::execute()
     {
 
 
-        Image* rotated = new Image(data[imgIndex].getWidth(), data[imgIndex].getHeight());
+        Image* rotated = new Image(data[imgIndex].getWidth(), data[imgIndex].getHeight(),data[imgIndex].getPath());
         int newHeight = data[imgIndex].getWidth();
         int newWidth = data[imgIndex].getHeight();
 

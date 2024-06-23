@@ -31,7 +31,7 @@ public:
 
 
     void print(std::ostream& os) const override {
-        os << '(' << red << ' ' << green << ' ' << blue << ')';
+        os << red << ' ' << green << ' ' << blue;
     }
     void read(std::istream& is) override {
         is >> red >> green >> blue;

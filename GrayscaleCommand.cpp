@@ -27,6 +27,10 @@ void GrayscaleCommand::execute()
 }
 
 
+void GrayscaleCommand::print() const
+{
+    std::cout << "grayscale";
+};
 ImageCommand* GrayscaleCommand::clone() const
 {
     return new GrayscaleCommand(*this);
