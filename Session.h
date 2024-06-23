@@ -4,7 +4,7 @@
 #include "CommandExecutor.h"
 class Session
 {
-public:
+private:
     Vector<Image> images;
     CommandExecutor pending;
     int id;
@@ -32,9 +32,17 @@ public:
         return images[id];
     }
 
+    Vector<Image>& getImages()
+    {
+        return images;
+    }
+    
+    CommandExecutor& getPending()
+    {
+        return pending;
+    }
 
     Session(Image&);
     Session();
 
 };
-

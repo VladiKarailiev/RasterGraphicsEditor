@@ -34,10 +34,10 @@ void SessionManager::run()
 			if (currSession == -1) continue;
 			try
 			{
-				Polymorphic_Ptr<ImageCommand> cmd= CommandFactory::create(SessionManager::getSession(currSession)->images, buff);
+				Polymorphic_Ptr<ImageCommand> cmd= CommandFactory::create(SessionManager::getSession(currSession)->getImages(), buff);
 
 
-				getSession(currSession)->pending.add(cmd);
+				getSession(currSession)->getPending().add(cmd);
 			}
 			catch (...)
 			{
@@ -134,11 +134,11 @@ void SessionManager::run()
 		if (input == "save")
 		{
 			if (currSession == -1) continue;
-			SessionManager::getSession(currSession)->pending.executeAll();
+			SessionManager::getSession(currSession)->getPending().executeAll();
 			
-			for (size_t i = 0; i < getSession(currSession)->images.getSize(); i++)
+			for (size_t i = 0; i < getSession(currSession)->getImages().getSize(); i++)
 			{
-				getSession(currSession)->images[i].save();
+				getSession(currSession)->getImage(i).save();
 			}
 			///images save to files
 		}
@@ -151,13 +151,25 @@ void SessionManager::run()
 
 		if (input == "help")
 		{
-			std::cout << "print help"; ///
+			std::cout << "HELP:\n";
+			std::cout << "print - Prints out the pixels of all images in current session.\n";
+			std::cout << "collage <direction> <path1> <path2> <result path> - Direction is either horizontal or vertical. Creates a collage that is saved in the result path.";
+			std::cout << "exit - Ends program WITHOUT SAVING!\n";
+			std::cout << "save - Saves all the files and applies all TRANSFORMATIONS in current session.\n";
+			std::cout << "undo - Reverts transformations.\n";
+			std::cout << "load <path> - Starts session with an image.\n";
+			std::cout << "switch <id> - Switches to a different session.\n";
+			std::cout << "session info - Prints out information for the current session.\n";
+			std::cout << "add <path> - Adds an image to the current session.\n";
+			std::cout << "grayscale/monochrome/negative - Adds transformation\n";
+			std::cout << "rotate left/right - Adds rotate transformation\n";
+			std::cout << "help - prints out help\n\n";
 		}
 
 		if (input == "print")
 		{
 			if (currSession == -1) continue;
-			for (size_t i = 0; i < SessionManager::getSession(currSession)->images.getSize(); i++)
+			for (size_t i = 0; i < SessionManager::getSession(currSession)->getImages().getSize(); i++)
 			{
 				Image temp = SessionManager::getSession(currSession)->getImage(0);
 				SessionManager::getSession(currSession)->getImage(i).print();
