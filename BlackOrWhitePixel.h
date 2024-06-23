@@ -22,7 +22,7 @@ public:
     void invert() override
     {
         value = !value;
-    }/// magic numbers
+    }
 
 
     void print(std::ostream& os) const override {

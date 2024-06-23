@@ -8,5 +8,3 @@ struct RGB
 
 	friend std::ostream& operator<<(std::ostream&, const RGB&);
 };
-/// tva ne trqq da e int!
-/// dr op trqq se razpishe

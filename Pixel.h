@@ -4,7 +4,9 @@
 class Pixel {
 public:
     virtual ~Pixel() = default;
-    virtual void print() const = 0;
+    virtual void print() const {
+        std::cout << 0;
+    };
     virtual Pixel* clone() const = 0;
 
     virtual void grayscale() = 0;

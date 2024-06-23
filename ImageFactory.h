@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "MyString.h"
 #include "Image.hpp"
 #include "BlackOrWhitePixel.h"
 #include "GrayscalePixel.h"
@@ -9,10 +10,10 @@
 
 class ImageFactory {
 public:
-    static Image createPBM(const std::string& filePath) {
-        std::ifstream file(filePath);
+    static Image createPBM(const MyString& filePath) {
+        std::ifstream file(filePath.c_str());
         if (!file.is_open()) {
-            throw std::runtime_error("Failed to open file: " + filePath);
+            throw std::runtime_error("Failed to open file");
         }
 
         int width, height;
@@ -31,10 +32,10 @@ public:
         return image;
     }
     
-    static Image createPGM(const std::string& filePath) {
-        std::ifstream file(filePath);
+    static Image createPGM(const MyString& filePath) {
+        std::ifstream file(filePath.c_str());
         if (!file.is_open()) {
-            throw std::runtime_error("Failed to open file: " + filePath);
+            throw std::runtime_error("Failed to open file");
         }
 
         int width, height;
@@ -53,10 +54,10 @@ public:
         return image;
     }
 
-    static Image createPPM(const std::string& filePath) {
-        std::ifstream file(filePath);
+    static Image createPPM(const MyString& filePath) {
+        std::ifstream file(filePath.c_str());
         if (!file.is_open()) {
-            throw std::runtime_error("Failed to open file: " + filePath);
+            throw std::runtime_error("Failed to open file");
         }
 
         int width, height;
@@ -74,8 +75,8 @@ public:
         return image;
     }
 
-    static Image createImage(const std::string& filePath) {
-        std::string format = filePath.substr(filePath.size() - 3, 3);
+    static Image createImage(const MyString& filePath) {
+        MyString format = filePath.substr(strlen(filePath.c_str()) - 3, 3);
         if (format == "pbm") {
             return createPBM(filePath);
         }
@@ -87,8 +88,69 @@ public:
             return createPPM(filePath);
         }
         else {
-            throw std::runtime_error("Unsupported file format: " + filePath);
+            throw std::runtime_error("Unsupported file format");
         }
     }
-    
+  
+
+    static Image createHorizontalCollage(const Image& img1, const Image& img2, const MyString& newPath) {
+        int newHeight = std::max(img1.getHeight(), img2.getHeight());
+        int newWidth = img1.getWidth() + img2.getWidth();
+        Image collage(newHeight, newWidth, newPath);
+        
+        Pixel* def = new BlackOrWhitePixel(0);
+        for (size_t i = 0; i < newHeight; i++)
+        {
+            for (size_t j = 0; j < newWidth; j++)
+            {
+                collage.setPixel(i, j, def);
+            }
+        }
+        delete def;
+
+
+        for (int i = 0; i < img1.getHeight(); ++i) {
+            for (int j = 0; j < img1.getWidth(); ++j) {
+                collage.setPixel(i, j, &img1.getPixel(i, j));
+            }
+        }
+
+        for (int i = 0; i < img2.getHeight(); ++i) {
+            for (int j = 0; j < img2.getWidth(); ++j) {
+                collage.setPixel(i, j + img1.getWidth(), &img2.getPixel(i, j));
+            }
+        }
+
+        collage.save();
+        return collage;
+    }
+    static Image createVerticalCollage(const Image& img1, const Image& img2, const MyString& newPath) {
+        int newHeight = img1.getHeight()+img2.getHeight();
+        int newWidth = std::max(img1.getWidth() ,img2.getWidth());
+        Image collage(newHeight, newWidth, newPath);
+
+        Pixel* def = new BlackOrWhitePixel(0);
+        for (size_t i = 0; i < newHeight; i++)
+        {
+            for (size_t j = 0; j < newWidth; j++)
+            {
+                collage.setPixel(i, j, def);
+            }
+        }
+        delete def;
+        for (int i = 0; i < img1.getHeight(); ++i) {
+            for (int j = 0; j < img1.getWidth(); ++j) {
+                collage.setPixel(i, j, &img1.getPixel(i, j));
+            }
+        }
+
+        for (int i = 0; i < img2.getHeight(); ++i) {
+            for (int j = 0; j < img2.getWidth(); ++j) {
+                collage.setPixel(i+img1.getHeight(), j, &img2.getPixel(i, j));
+            }
+        }
+
+        collage.save();
+        return collage;
+    }
 };

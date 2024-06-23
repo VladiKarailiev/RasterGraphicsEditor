@@ -23,7 +23,7 @@ public:
     void invert() override
     {
         value = 255 - value;
-    }/// magic numbers
+    }
 
 
 

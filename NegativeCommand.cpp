@@ -16,7 +16,6 @@ void NegativeCommand::execute()
     snapshot = new Vector<Image>(data);
 
     // logic
-    // logic
     for (size_t imgIndex = 0; imgIndex < data.getSize(); imgIndex++)
     {
         for (size_t i = 0; i < data[imgIndex].getHeight(); i++)

@@ -10,7 +10,6 @@
 #include "Polymorphic_Ptr.hpp"
 #include "Session.h"
 #include "SessionManager.h"
-#include "Runner.h"
 int main()
 {
     SessionManager::run();
@@ -31,22 +30,15 @@ int main()
 }
 
 /*
-trqq se poglednat za vs sluchai height i width da ne sa razmeneni
-do tuk cheteneto ot fail e kinda ok
 
 */
 
 
 
 /*
- ImageFactory::createImage(<path>) - vrushta Image* - chete DYNAMIC! obekt ot tip IMAGE
- Polymorphic_Ptr<ImageCommand> ptr = Factory::create(*pbmImage);
 */
 
 
 /*
-PRAQ VEKTOR OT STATICHNI OBEKTI KOETO E MALKO WEIRD????
-
-vektor ot sesii
 
 */

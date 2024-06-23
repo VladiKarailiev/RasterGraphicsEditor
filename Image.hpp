@@ -2,16 +2,17 @@
 #include <vector>
 #include <fstream>
 #include "Pixel.h"
+#include "MyString.h"
 #include "Vector.hpp"
 #include "Polymorphic_Ptr.hpp"
 
 class Image {
 public:
     Image() = default;
-    Image(std::string path) {
+    Image(MyString path) {
         this->path = path;
     }
-    Image(int height, int width, std::string path) : width(width), height(height) {
+    Image(int height, int width, MyString path) : width(width), height(height) {
         this->path = path;
         for (size_t i = 0; i < height; i++)
         {
@@ -58,14 +59,14 @@ public:
         return height;
     }
 
-    std::string getPath() const
+    MyString getPath() const
     {
         return path;
     }
 
     void save()
     {
-        std::ofstream ofs(path);
+        std::ofstream ofs(path.c_str());
         if (!ofs.is_open()) return;
         ofs << height << ' ' << width << '\n';
         for (size_t i = 0; i < height; i++)
@@ -78,7 +79,7 @@ public:
             ofs << '\n';
         }
     }
-    void saveAs(std::string newPath)
+    void saveAs(MyString newPath)
     {
         path = newPath;
         save();
@@ -87,11 +88,5 @@ public:
 private:
     int width = 0, height = 0;
     Vector<Vector<Polymorphic_Ptr<Pixel>>> pixels;
-    std::string path = "";
+    MyString path = "";
 };
-
-// tva ne e hpp!
-
-// kato zapisva trqq da pishe tva maxnumber 
-// collage
-// saveas

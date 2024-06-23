@@ -1,5 +1,4 @@
 #pragma once
-#include "Command.h"
 #include "Polymorphic_Ptr.hpp"
 #include "ImageCommand.h"
 #include "GrayscaleCommand.h"
@@ -8,16 +7,16 @@
 #include "RotateLeftCommand.h"
 #include "RotateRightCommand.h"
 #include <sstream>
-
+#include "MyString.h"
 
 
 class CommandFactory {
 public:
 
-	static Polymorphic_Ptr<ImageCommand> create(Vector<Image>& data,std::string input) {
-		std::stringstream ss(input);
+	static Polymorphic_Ptr<ImageCommand> create(Vector<Image>& data,MyString input) {
+		std::stringstream ss(input.c_str());
 
-		std::string cmd;
+		MyString cmd;
 		ss >> cmd;
 		if (cmd == "grayscale") {
 

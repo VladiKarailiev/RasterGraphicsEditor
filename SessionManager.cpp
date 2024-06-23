@@ -20,10 +20,10 @@ void SessionManager::run()
 	int currSession = -1;
 	while (true)
 	{
-		char buff[100];
+		char buff[1024];
 		std::cin.getline(buff, 1024);
 
-		std::string input = "";
+		MyString input = "";
 
 		std::stringstream ss(buff);
 		ss >> input;
@@ -52,7 +52,7 @@ void SessionManager::run()
 			if (currSession == -1) continue;
 			try
 			{
-			Image img = ImageFactory::createImage(input);
+			Image img = ImageFactory::createImage(input.c_str());
 
 			SessionManager::getSession(currSession)->addImage(img);
 
@@ -104,7 +104,7 @@ void SessionManager::run()
 			ss >> input;
 			
 			try {
-				Image img = ImageFactory::createImage(input);
+				Image img = ImageFactory::createImage(input.c_str());
 
 				Session* newSession = new Session(img);
 				SessionManager::addSession(newSession);
@@ -161,6 +161,24 @@ void SessionManager::run()
 			{
 				Image temp = SessionManager::getSession(currSession)->getImage(0);
 				SessionManager::getSession(currSession)->getImage(i).print();
+			}
+		}
+
+		if (input == "collage")
+		{
+			MyString direction,path1,path2,newpath;
+			ss >> direction >> path1 >> path2 >> newpath;
+			try
+			{
+				Image img1 = ImageFactory::createImage(path1.c_str());
+				Image img2 = ImageFactory::createImage(path2.c_str());
+				
+				if (direction == "horizontal") ImageFactory::createHorizontalCollage(img1, img2, newpath);
+				if (direction == "vertical") ImageFactory::createVerticalCollage(img1, img2, newpath);
+			}
+			catch (...)
+			{
+				std::cout << "Collage maker failed.\n";
 			}
 		}
 

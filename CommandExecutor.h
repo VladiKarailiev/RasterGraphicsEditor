@@ -29,9 +29,5 @@ public:
 	void undo();
 	void undoAll();
 
-	/*static CommandExecutor& getInstance() {
-		static CommandExecutor executor;
-		return executor;
-	}*/
 
 };

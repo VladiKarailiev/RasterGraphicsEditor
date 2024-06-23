@@ -1,10 +1,9 @@
 #pragma once
-#include "Command.h"
 #include "Vector.hpp"
 #include "Image.hpp"
 
 
-class ImageCommand : public Command
+class ImageCommand 
 {
 protected:
 	Vector<Image>& data;

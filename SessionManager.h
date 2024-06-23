@@ -4,7 +4,7 @@
 
 class SessionManager {
 public:
-    static void addSession(Session* session) { // const!!!!!!!!!
+    static void addSession(Session* session) {
         sessions.pushBack(session);
     }
 

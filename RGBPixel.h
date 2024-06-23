@@ -27,7 +27,7 @@ public:
         red = 255 - red;
         green = 255 - green;
         blue = 255 - blue;
-    }/// magic numbers
+    }
 
 
     void print(std::ostream& os) const override {
@@ -41,5 +41,3 @@ private:
     int red, green, blue;
 
 };
-
-/// trqq se mahnat read i write!
