@@ -9,3 +9,15 @@ This project is a C++ image processing library that supports reading, manipulati
 - Rotate images left and right.
 - Create image collages by combining two images.
 - Undo and execute command patterns for image manipulation.
+
+Running the Command Line Interface
+
+```
+#include "Runner.h"
+
+int main() {
+    Runner r;
+    r.run();
+    return 0;
+}
+```
