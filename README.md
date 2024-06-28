@@ -16,8 +16,6 @@ Running the Command Line Interface
 #include "Runner.h"
 
 int main() {
-    Runner r;
-    r.run();
-    return 0;
+    SessionManager::run();
 }
 ```
