@@ -13,7 +13,7 @@ This project is a C++ image processing library that supports reading, manipulati
 Running the Command Line Interface
 
 ```
-#include "Runner.h"
+#include "SessionManager.h"
 
 int main() {
     SessionManager::run();
